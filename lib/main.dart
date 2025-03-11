@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -29,18 +31,151 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor: Color.fromARGB(255, 12, 90, 123)
+        scaffoldBackgroundColor: Color.fromARGB(255, 12, 90, 123),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 12, 90, 123),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+        ),
       ),
-      home:  MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget{
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar:AppBar(),
-    body: Column(children: [Image.asset("assets/images/img_1.png")]));
-  }}
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: screenHeight * 0.35,
+              child: Column(
+                children: [
+                  Expanded(child: Image.asset("assets/images/img_1.png")),
+                  Expanded(
+                    child: Image.asset("assets/images/img.png", width: 100),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Container(
+                        decoration: BoxDecoration(color: Colors.grey[300],shape: BoxShape.rectangle),
+                        child: Icon(
+                          CupertinoIcons.mail,
+                          color: Colors.blue[800],
+                        ),
+                      ),
+                      labelText: "example@email.com",
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Container(
+                        color: Colors.grey[300],
+                        child: Icon(
+                          CupertinoIcons.lock,
+                          color: Colors.blue[800],
+                        ),
+                      ),
+                      labelText: "*******************",
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 26, 200, 255),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Log in",
+                          style: TextStyle(color: Colors.white, fontSize: 17),
+                        ),
+                        Icon(
+                          CupertinoIcons.arrow_right_to_line,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  Text.rich(
+                    TextSpan(
+                      text: "Forgot Password?",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  Row(
+                    children: [
+                      Expanded(child: Divider(color: Colors.black)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          "OR",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      Expanded(child: Divider(color: Colors.black)),
+                    ],
+                  ),
+                  SizedBox(height: 25),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 12, 90, 123),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        side: BorderSide(
+                          color: Color.fromARGB(255, 16, 119, 154),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Sign Up", style: TextStyle(color: Colors.white)),
+                        Icon(
+                          CupertinoIcons.arrow_right_to_line,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
